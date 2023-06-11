@@ -11,12 +11,14 @@ const cors = require('cors');
 const app = express();
 
 
-mongoose.connect('mongodb+srv://Caracara:caracara56cara@cluster0.dvftf3o.mongodb.net/?retryWrites=true&w=majority',
-{ useNewUrlParser: true,
-    useUnifiedTopology: true })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+mongoose.connect( process.env.DB_URL,
 
+    { useNewUrlParser: true,
+    useUnifiedTopology: true })
+        .then(() => console.log('Connexion à MongoDB réussie !'))
+        .catch(() => console.log('Connexion à MongoDB échouée !'));
+        
+//PERMET DE PASSER LES CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -31,7 +33,5 @@ app.use(cors());
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
-// app.get("/api/sauces", function(req,res) {
-//     return res.status(200).json({ status: "ok" })
-// });
+
 module.exports = app;

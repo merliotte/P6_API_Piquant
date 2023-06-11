@@ -30,8 +30,8 @@ exports.createSauce = (req, res, next) => {
       .then(sauces => res.status(200).json(sauces))
       .catch(error => res.status(400).json({ error }));
   };
-// PUT 
 
+// PUT 
      exports.modifySauce = (req, res, next) => {
         const sauceObject = req.file ? {
             ...JSON.parse(req.body.sauce),
